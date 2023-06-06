@@ -1,0 +1,71 @@
+Stored Procedure ve Trigger
+
+Stored Procedure Nedir ve Neden Kullanılır?
+
+Stored Procedure, veritabanında saklanan ve bir veya daha fazla SQL sorgusunu içeren bir programdır. Bu sorgular, veritabanı işlemlerini gerçekleştirmek, veri manipülasyonu yapmak veya özel iş mantığını uygulamak için kullanılır. Stored Procedure'lar, aşağıdaki nedenlerle kullanılabilir:
+
+Performans İyileştirmesi: Stored Procedure'lar, veritabanı sunucusunda işlenerek ağ trafiğini azaltır. Tek bir çağrı ile birden çok sorgu çalıştırılabilir, böylece ağ maliyeti ve gecikme süresi azaltılır.
+
+Güvenlik: Stored Procedure'lar, kullanıcılara doğrudan tablolara veya veritabanının içeriğine erişim sağlamadan veritabanı üzerinde işlemleri gerçekleştirebilir. Bu şekilde, veritabanının güvenliği artırılır ve yetkilendirme kontrolleri sağlanır.
+
+İş Mantığının Merkezi Yönetimi: İş mantığını veritabanı seviyesine taşıyarak, aynı iş mantığını kullanan birden çok uygulama tarafında tekrar kullanılabilir. Bu, veritabanı ile uygulama arasındaki koddaki tekrarı azaltır ve iş mantığının daha kolay yönetilmesini sağlar.
+
+
+
+Stored Procedure'ların Olumlu ve Olumsuz Etkileri
+
+Stored Procedure'ların kullanımının bazı olumlu etkileri vardır:
+
+Performans: Stored Procedure'lar, veritabanında işlemlerin hızlı bir şekilde gerçekleştirilmesine olanak tanır. İyi bir şekilde optimize edildiklerinde, sorgu yürütme süresini azaltabilirler.
+
+Veri Bütünlüğü: Stored Procedure'lar, veri bütünlüğünü korumak için kullanılabilir. Karmaşık veritabanı işlemleri gerçekleştirirken, verinin doğru bir şekilde işlendiğinden emin olmak için kullanılabilirler.
+
+Ancak, stored procedure'ların kullanımı bazı olumsuz etkilere de sahip olabilir:
+
+Bakım Zorlukları: Stored Procedure'lar, veritabanı tarafında yazıldığından, uygulama kodundan ayrı olarak yönetilmeleri gerektiği anlamına gelir. Bu durumda, güncellemeler veya değişiklikler yapmak daha zor olabilir.
+
+Portablite Sorunları: Stored Procedure'lar, veritabanı sağlayıcısına özgü dil veya sözdizimi kullanabilir. Bu, veritabanını değiştirmek veya farklı bir veritabanı sağlayıcısı kullanmak istediğinizde sorunlara neden olabilir.
+
+
+
+Stored Procedure ve Trigger Senaryoları
+
+Müşteri Puanlama Sistemi: Bir e-ticaret platformunda, müşterilerin belirli eylemlere göre puan kazanmalarını sağlamak isteyebilirsiniz. Bir trigger kullanarak, müşteri bir ürün satın aldığında veya bir yorum yaptığında puanlarını otomatik olarak güncelleyebilirsiniz. Örneğin, bir müşteri ürün satın aldığında, bir trigger çalışarak müşteriye satın aldığı ürünün değeri kadar puan ekler.
+
+Otomatik Sipariş İşleme: Bir e-ticaret platformunda, belirli bir ürün stok seviyesi altına düştüğünde otomatik olarak yeni bir sipariş oluşturmak isteyebilirsiniz. Bunun için bir stored procedure kullanarak, stok seviyesini kontrol edebilir ve gerekirse yeni bir sipariş oluşturabilirsiniz. Bu stored procedure'u, bir zamanlayıcı veya bir trigger ile belirli aralıklarla çağırabilirsiniz.
+
+Python ve Stored Procedure/Trigger İlişkisi
+Python'da veritabanı bağlantısı yapıldıktan sonra, veritabanı sisteminin sunduğu API'leri kullanarak stored procedure veya trigger çağırabilirsiniz. İşte genel bir mantık:
+
+Python'da bir veritabanı bağlantısı oluşturun ve gerekli modülleri içe aktarın (örneğin, "pyodbc" veya "psycopg2" gibi).
+
+Veritabanı bağlantısı üzerinden bir sorgu oluşturun ve sorgunun tipini belirtin (stored procedure veya trigger).
+
+Gerekli parametreleri ayarlayın ve sorguyu çalıştırın.
+
+Sonuçları alın ve işleyin.
+
+Bu, veritabanı sistemine bağlı olarak değişebilir. Örneğin, PostgreSQL'de bir stored procedure çağırmak için "psycopg2" modülünü kullanabilirsiniz ve aşağıdaki gibi bir örnek kod yazabilirsiniz:
+
+-----------------------------------------------------------------------------------------------
+import psycopg2
+
+# Veritabanı bağlantısı oluşturma
+conn = psycopg2.connect(database="mydatabase", user="myuser", password="mypassword", host="localhost", port="5432")
+
+# Cursor oluşturma
+cur = conn.cursor()
+
+# Stored procedure çağırma
+cur.callproc('my_stored_procedure', (parameter1, parameter2, ...))
+
+# Sonuçları almak
+results = cur.fetchall()
+
+# İşlem tamamlandığında bağlantıyı kapatma
+cur.close()
+conn.close()
+-----------------------------------------------------------------------------------------------
+Bu örnek, PostgreSQL veritabanında "my_stored_procedure" adlı bir stored procedure çağırır. Parametreler, sorguda belirtilen parametrelere göre ayarlanmalıdır. Sonuçlar, "fetchall()" yöntemi ile alınabilir.
+
+Stored procedure veya trigger'ın nasıl çağrılacağı, kullanılan veritabanı sistemine ve kullanılan Python modülüne bağlı olarak değişir. İlgili veritabanı sistemi ve Python modülü belirtilerek daha spesifik örnekler ve ayrıntılar sağlanabilir.

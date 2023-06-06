@@ -1,0 +1,37 @@
+Analitik SQL, veritabanı sorgularında analitik fonksiyonlar kullanarak veri analizi ve raporlama yapmaya olanak sağlayan bir SQL dilidir. Analitik SQL, verilerin segmentasyonu, sıralama, sütun bazında hesaplamalar ve toplam değerler gibi analitik işlemleri gerçekleştirmek için kullanılır.
+
+Analitik SQL'in kullanıldığı bazı alanlar:
+1.Veri Analizi
+2.İş Zekası ve Raporlama
+3.Pazarlama Analizi
+4.Finansal Analiz
+5.Operasyonel Analiz
+
+1-> Bir e-ticaret sitesinin satış verilerini analiz etmek için kullanılabilir:
+
+SELECT EXTRACT(YEAR FROM order_date) AS year,
+       SUM(total_amount) AS total_sales
+FROM orders
+GROUP BY year
+ORDER BY year;
+
+(Bu sorgu, "orders" tablosundaki "order_date" sütunundan yıl bilgisini çıkarır ve her yıl için toplam satış miktarını hesaplar. Sonuçlar, yıllara göre gruplandırılır ve yıla göre artan şekilde sıralanır.)
+
+
+2 -> Bir restoranın sipariş verilerini analiz etmek için kullanılabilir:
+
+SELECT customer_id,
+       COUNT(*) AS order_count
+FROM orders
+GROUP BY customer_id
+ORDER BY order_count DESC
+FETCH FIRST 1 ROW ONLY;
+
+(Bu sorgu, "orders" tablosundaki siparişlerin müşteri bazında sayısını hesaplar ve en yüksek sipariş sayısına sahip olan müşteriyi bulur. Sonuçlar, sipariş sayısına göre azalan şekilde sıralanır ve sadece ilk satır alınır.)
+
+3 -> Bir müşteri veritabanındaki doğum tarihlerini kullanarak ortalama müşteri yaşını hesaplamak için kullanılabilir:
+
+SELECT AVG(DATEDIFF(year, birth_date, CURRENT_DATE)) AS average_age
+FROM customers;
+
+(Bu sorgu, "customers" tablosundaki müşterilerin doğum tarihlerinden gün cinsinden yaşlarını hesaplar ve bu yaşların ortalamasını alır. Sonuç olarak, ortalama müşteri yaşı döndürülür.)
