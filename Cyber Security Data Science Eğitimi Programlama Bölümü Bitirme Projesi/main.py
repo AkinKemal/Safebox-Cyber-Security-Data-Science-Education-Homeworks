@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+# Geçerli bir bağlantı bilgisi girilmeli
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://username:password@localhost/todoapp' # PostgreSQL bağlantı URL'si
 db = SQLAlchemy(app)
 
